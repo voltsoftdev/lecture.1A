@@ -11,8 +11,6 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.page_intro);
-
-
+        setContentView(R.layout.page_sample2);
     }
 }
