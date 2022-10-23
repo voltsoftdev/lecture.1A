@@ -5,6 +5,7 @@
     android:background="@color/main_back">
 
     <TextView
+        android:id="@+id/helloWorldView"
         android:layout_width="250dp"
         android:layout_height="120dp"
         android:text="Hello world"
@@ -60,6 +61,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/color_FF4081"
@@ -74,6 +76,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/findingPasswordButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@color/color_8BEAE6"
@@ -83,6 +86,7 @@
                 android:layout_weight="1"/>
 
             <Button
+                android:id="@+id/findingIdButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@color/color_FF4081"
@@ -94,6 +98,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/memberJoinButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/color_FF4081"

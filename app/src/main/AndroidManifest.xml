@@ -13,9 +13,22 @@
         android:theme="@style/Theme.Lecture"
         tools:targetApi="31">
 
-        <activity android:name=".IntroActivity"
+        <activity android:name=".SampleActivity"
             android:exported="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
+
+        <activity android:name=".SampleOperation">
+
+        </activity>
+
+        <activity android:name=".EmailLoginPage"
+            android:exported="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize">
+
             <intent-filter>
 
                 <action android:name="android.intent.action.MAIN"/>
@@ -23,6 +36,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
 
             </intent-filter>
+
+        </activity>
+
+        <activity android:name=".MemberJoinPage">
+
         </activity>
 
     </application>

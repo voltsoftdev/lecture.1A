@@ -10,6 +10,7 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="main">#14d3cf</color>
     <color name="main_start">#14d3cf</color>
+    <color name="main_start80">#8014d3cf</color>
     <color name="main_middle">#1eddc1</color>
     <color name="main_end">#29e8b1</color>
     <color name="main_endAlpha80">#a029e8b1</color>
@@ -24,7 +25,10 @@
     <color name="color_naver_theme1">#03EB64</color>
     <color name="color_naver_theme2">#14E6BE</color>
     <color name="color_naver_theme3">#1EC8E8</color>
-
+    <color name="main_blue">#3378fd</color>
+    <color name="main_blue80">#803378fd</color>
+    <color name="login_back">#464c64</color>
+    <color name="login_back80">#80464c64</color>
 
     <color name="color_white">#FFffffff</color>
     <color name="color_black">#FF000000</color>
@@ -133,4 +137,8 @@
     <color name="cpb_green">#ff99cc00</color>
     <color name="cpb_green_dark">#ff6d9b00</color>
     <color name="cpb_white">@android:color/white</color>
+
+    <color name="insert_form_default_color">#3FC1C9</color>
+    <color name="insert_form_default_color_alpha80">#a03FC1C9</color>
+
 </resources>

@@ -1,7 +1,900 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/login_back"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/titleFrame"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:weightSum="100">
+
+        <ImageView
+            android:id="@+id/join_page_back_button"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanscjkkr_light"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:text="회원가입"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:textStyle="normal"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white"/>
+
+    </FrameLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="70dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="26dp">
+
+                <ToggleButton
+                    android:id="@+id/checkButtonAsTeacher"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:textOff=""
+                    android:textOn=""
+                    android:background="@drawable/setting_toggle_button01"/>
+
+                <TextView
+                    android:id="@+id/checkButtonAsTeacherText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/white"
+                    android:text="선생님으로 회원가입"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/belongDataInputBoxFrame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="22dp">
+
+                <LinearLayout
+                    android:id="@+id/join_page_input_school_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_form_height"
+                    android:background="@drawable/selector_registration_form"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/join_page_input_school_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="100"
+                        android:background="@null"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:hint="소속 되어 있는 학교 및 단체를 입력해주세요."
+                        android:includeFontPadding="false"
+                        android:inputType="textShortMessage"
+                        android:maxLength="16"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/school_warning_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="4dp"
+                    android:text="최소 3글자 이상이여야 합니다."
+                    android:textColor="@color/color_gmail_theme"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D8DEE4"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_form_height"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:id="@+id/editTextIdFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/selector_registration_form"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/editTextId"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="75"
+                        android:background="@null"
+                        android:textColor="@color/login_back"
+                        android:textColorHint="@color/login_back80"
+                        android:inputType="textEmailAddress"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:hint="이메일을 입력하세요"
+                        android:includeFontPadding="false"
+                        android:imeOptions="actionNext"
+                        android:maxLength="50"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/join_page_check_id_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="25"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="중복확인"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:background="@drawable/selector_registration_form_button"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/idWarningView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanscjkkr_regular"
+                android:includeFontPadding="false"
+                android:text="이메일을 입력해주세요"
+                android:visibility="gone"
+                android:textColor="@color/color_gmail_theme"
+                android:textSize="14dp"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_form_height"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:id="@+id/join_page_input_pw_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/selector_registration_form"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/editTextPassword1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="100"
+                        android:background="@null"
+                        android:textColorHint="@color/login_back80"
+                        android:textColor="@color/login_back"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:hint="비밀번호를 입력하세요."
+                        android:imeOptions="actionNext"
+                        android:includeFontPadding="false"
+                        android:inputType="textPassword"
+                        android:maxLength="16"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/join_page_input_pw_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="44dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="비밀번호"
+                    android:visibility="gone"
+                    android:textColor="@color/cpb_grey"
+                    android:textSize="14dp"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/password_warning_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:visibility="gone"
+                android:layout_marginTop="4dp"
+                android:text="영어,숫자,특수문자 포함하여 8~16자리로 만들어주세요."
+                android:textColor="@color/color_gmail_theme"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_form_height"
+                android:layout_marginTop="@dimen/registration_form_top_margin">
+
+                <LinearLayout
+                    android:id="@+id/join_page_input_pw_confirm_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/selector_registration_form"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/editTextPassword2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="100"
+                        android:background="@null"
+                        android:textColor="@color/login_back"
+                        android:textColorHint="@color/login_back80"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionNext"
+                        android:hint="비밀번호를 다시 입력하세요."
+                        android:includeFontPadding="false"
+                        android:inputType="textPassword"
+                        android:maxLength="16"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/join_page_input_pw_confirm_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="44dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="비밀번호 재 확인"
+                    android:visibility="gone"
+                    android:textColor="@color/cpb_grey"
+                    android:textSize="14dp"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_form_height"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/registration_form_top_margin">
+
+                <LinearLayout
+                    android:id="@+id/join_page_input_name_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/view_grey_color_round_edge"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/join_page_input_name_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="100"
+                        android:background="@null"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:hint="이름을 입력해주세요."
+                        android:includeFontPadding="false"
+                        android:maxLength="6"
+
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/join_page_input_name_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="44dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="이름"
+                    android:visibility="gone"
+                    android:textColor="@color/cpb_grey"
+                    android:textSize="14dp"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/password_warning_message2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:visibility="gone"
+                android:layout_marginTop="4dp"
+                android:text="이전에 입력한 패스워드와 동일하지 않습니다"
+                android:textColor="@color/color_gmail_theme"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_form_height"
+                android:layout_marginTop="@dimen/registration_form_top_margin">
+
+                <LinearLayout
+                    android:id="@+id/join_page_input_phone_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/selector_registration_form"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/editTextPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="75"
+                        android:background="@null"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:hint="휴대폰을 통한 본인인증 필요"
+                        android:imeOptions="actionDone"
+                        android:includeFontPadding="false"
+                        android:inputType="phone"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/login_back80"
+                        android:textSize="15dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/sending_sms_auth_code"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="25"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="실명인증"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:background="@drawable/selector_registration_form_button"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/join_page_input_phone_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="44dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="핸드폰 번호(선택)"
+                    android:visibility="gone"
+                    android:textColor="@color/cpb_grey"
+                    android:textSize="14dp"/>
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/join_page_input_belong_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_form_height"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/registration_form_top_margin">
+
+                <LinearLayout
+                    android:id="@+id/join_page_input_belong_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/selector_registration_form"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/join_page_input_belong_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="100"
+                        android:background="@null"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:hint="소속 학교 및 단체를 입력해주세요"
+                        android:includeFontPadding="false"
+                        android:inputType="textPassword"
+                        android:maxLength="16"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/join_page_input_belong_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="44dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="비밀번호 재 확인"
+                    android:visibility="gone"
+                    android:textColor="@color/cpb_grey"
+                    android:textSize="14dp"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_form_height"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/registration_form_top_margin">
+
+                <LinearLayout
+                    android:id="@+id/join_page_input_email_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/view_grey_color_round_edge"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/join_page_input_email_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="75"
+                        android:background="@null"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:hint="이메일을 입력해주세요."
+                        android:includeFontPadding="false"
+                        android:maxLength="50"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/join_page_check_email_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="25"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text=" 인증코드 발송 "
+                        android:textColor="@color/cpb_grey"
+                        android:textSize="10dp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/join_page_input_email_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="44dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="이메일"
+                    android:visibility="gone"
+                    android:textColor="@color/cpb_grey"
+                    android:textSize="14dp"/>
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_form_height"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/registration_form_top_margin">
+
+                <LinearLayout
+                    android:id="@+id/join_page_input_email_code_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/view_grey_color_round_edge"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/join_page_input_email_code_confirm_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="75"
+                        android:background="@null"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:hint="인증번호 6자리를 입력해주세요."
+                        android:includeFontPadding="false"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                    <Button
+                        android:id="@+id/join_page_check_email_code_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="25"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="인증번호 확인"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:background="@drawable/selector_registration_form_button"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/join_page_input_email_code_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="44dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="인증번호"
+                    android:visibility="gone"
+                    android:textColor="@color/cpb_grey"
+                    android:textSize="14dp"/>
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/join_page_input_sms_code_form"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="@dimen/input_form_height"
+                android:layout_marginTop="@dimen/registration_form_top_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/selector_registration_form"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/join_page_input_sms_code_confirm_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="75"
+                        android:background="@null"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center_vertical"
+                        android:hint="인증번호 6자리를 입력해주세요."
+                        android:includeFontPadding="false"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                    <Button
+                        android:id="@+id/join_page_check_sms_code_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="25"
+                        android:fontFamily="@font/notosanscjkkr_regular"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="인증번호 확인"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:background="@drawable/view_main_color_2edge_round_button"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/join_page_input_sms_code_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="44dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="인증번호"
+                    android:visibility="gone"
+                    android:textColor="@color/cpb_grey"
+                    android:textSize="14dp"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="28dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="100">
+
+                <CheckBox
+                    android:id="@+id/join_page_checkbox_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/main_start" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="10dp"
+                    android:text="온체육 개인정보 처리방침"
+                    android:textColor="#595959"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/join_page_personal_info_agreement_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="(자세히 보기)"
+                    android:textColor="#595959"
+                    android:textSize="13dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="28dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="100">
+
+                <CheckBox
+                    android:id="@+id/join_page_checkbox_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/main" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="10dp"
+                    android:text="온체육 이용약관"
+                    android:textColor="#595959"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/join_page_terms_of_user_info_agree"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="(자세히 보기)"
+                    android:textColor="#595959"
+                    android:textSize="13dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="28dp"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <CheckBox
+                    android:id="@+id/join_page_checkbox_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/main" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="10dp"
+                    android:text="푸시 알림 동의(선택)"
+                    android:textColor="#595959"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="28dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="100">
+
+                <CheckBox
+                    android:id="@+id/join_page_checkbox_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/main" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="10dp"
+                    android:text="(만 14세 미만 가입 제한)"
+                    android:textColor="#595959"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="2dp"
+                    android:text="(필수)"
+                    android:textColor="@color/main"
+                    android:textSize="14dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2.5dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="24dp"
+                android:visibility="gone"
+                android:background="#BCBCBC" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="100">
+
+                <CheckBox
+                    android:id="@+id/join_page_checkbox_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/main" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="10dp"
+                    android:text="전체 동의"
+                    android:textColor="#595959"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/selector_button_cofirm2"
+        android:fontFamily="@font/notosanscjkkr_medium"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:text="가입하기"
+        android:layout_below="@+id/memberShipJoinForm"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="normal"/>
 
 </FrameLayout>

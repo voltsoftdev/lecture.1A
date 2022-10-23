@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/login_back"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="bottom"
+            android:layout_marginTop="80dp">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="left"
+                android:src="@drawable/ggoumlogo_noshadow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanscjkkr_regular"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="10dp"
+                android:text="대한민국 대표 영어 단어 수업"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/color_white80"
+                android:textSize="18dp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp">
+
+            <EditText
+                android:id="@+id/login_page_input_id_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/view_grey_color_round_edge"
+                android:fontFamily="@font/notosanscjkkr_regular"
+                android:gravity="center_vertical"
+                android:textColorHint="@color/login_back80"
+                android:hint="등록한 이메일을 입력해주세요."
+                android:includeFontPadding="false"
+                android:maxLength="30"
+                android:paddingLeft="18dp"
+                android:singleLine="true"
+                android:textSize="14dp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/login_page_input_pw_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/view_grey_color_round_edge"
+                android:fontFamily="@font/notosanscjkkr_regular"
+                android:gravity="center_vertical"
+                android:textColorHint="@color/login_back80"
+                android:hint="비밀번호를 입력해주세요."
+                android:includeFontPadding="false"
+                android:inputType="textPassword"
+                android:maxLength="30"
+                android:paddingLeft="18dp"
+                android:singleLine="true"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:paddingLeft="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    app:srcCompat="@drawable/ic_login_page_lock" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:fontFamily="@font/notosanscjkkr_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="비밀번호 입력"
+                    android:textColor="#3378fd"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+
+            <ToggleButton
+                android:id="@+id/checkButtonAsTeacher"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:textOff=""
+                android:textOn=""
+                android:background="@drawable/setting_toggle_button01"/>
+
+            <TextView
+                android:id="@+id/checkButtonAsTeacherText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanscjkkr_regular"
+                android:includeFontPadding="false"
+                android:textSize="12sp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/color_white50"
+                android:text="선생님으로 로그인"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_page_login_textview"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/selector_button_cofirm"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/notosanscjkkr_medium"
+            android:gravity="center"
+            android:elevation="5dp"
+            android:includeFontPadding="false"
+            android:text="로그인"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/login_page_search_id_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanscjkkr_medium"
+                android:includeFontPadding="false"
+                android:text="이메일 찾기"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_kr_bold"
+                android:includeFontPadding="false"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="\u00b7"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/login_page_search_pw_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanscjkkr_medium"
+                android:includeFontPadding="false"
+                android:text="비밀번호 찾기"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanscjkkr_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="아직 회원이 아니신가요?"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/color_white70"
+                android:textSize="12dp"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/login_page_join_textview"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_material_rect01"
+                android:elevation="5dp"
+                android:layout_marginBottom="32dp"
+                android:fontFamily="@font/notosanscjkkr_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="회원가입"
+                android:textColor="@color/main_start"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
