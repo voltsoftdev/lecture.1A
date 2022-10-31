@@ -39,7 +39,17 @@
 
         </activity>
 
-        <activity android:name=".MemberJoinPage">
+        <activity android:name=".MemberJoinPage"
+            android:exported="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
+
+        <activity android:name=".MainPage"
+            android:exported="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize">
 
         </activity>
 

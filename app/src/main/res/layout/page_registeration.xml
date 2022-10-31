@@ -200,7 +200,6 @@
                 android:fontFamily="@font/notosanscjkkr_regular"
                 android:includeFontPadding="false"
                 android:text="이메일을 입력해주세요"
-                android:visibility="gone"
                 android:textColor="@color/color_gmail_theme"
                 android:textSize="14dp"/>
 
@@ -257,11 +256,10 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/password_warning_message"
+                android:id="@+id/passwordWarningView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
-                android:visibility="gone"
                 android:layout_marginTop="4dp"
                 android:text="영어,숫자,특수문자 포함하여 8~16자리로 만들어주세요."
                 android:textColor="@color/color_gmail_theme"/>
@@ -369,11 +367,10 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/password_warning_message2"
+                android:id="@+id/passwordWarningView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
-                android:visibility="gone"
                 android:layout_marginTop="4dp"
                 android:text="이전에 입력한 패스워드와 동일하지 않습니다"
                 android:textColor="@color/color_gmail_theme"/>
@@ -441,8 +438,16 @@
                     android:textColor="@color/cpb_grey"
                     android:textSize="14dp"/>
 
-
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/phoneWarningView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginTop="4dp"
+                android:text="핸드폰 번호가 입력되지 않았습니다"
+                android:textColor="@color/color_gmail_theme"/>
 
             <FrameLayout
                 android:id="@+id/join_page_input_belong_frame"
