@@ -13,17 +13,6 @@
         android:theme="@style/Theme.Lecture"
         tools:targetApi="31">
 
-        <activity android:name=".SampleActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-
-        <activity android:name=".SampleOperation">
-
-        </activity>
-
         <activity android:name=".EmailLoginPage"
             android:exported="true"
             android:theme="@style/AppTheme"
