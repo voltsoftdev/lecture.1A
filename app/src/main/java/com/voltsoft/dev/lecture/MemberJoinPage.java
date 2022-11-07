@@ -28,6 +28,13 @@ public class MemberJoinPage extends Activity {
 
         setContentView(R.layout.page_registeration);
 
+        // 날 실행한 명령어를 꺼내와보자 'getIntent'
+        Intent intent = getIntent();
+        // 명령어에 저장되어 있는 메세지 , 값을 꺼내와 보자 !
+        String message = intent.getStringExtra("message"); // "안녕 회원가입 화면? 반가워"
+        // intent 에 분명 'value' 라는 이름으로 숫자 값이 동봉 되어 있을거야. 없으면 0
+        int number = intent.getIntExtra("value", 0);
+
         ScrollView scrollView = findViewById(R.id.scrollView);
 
         EditText editTextId = findViewById(R.id.editTextId);
@@ -52,10 +59,10 @@ public class MemberJoinPage extends Activity {
             @Override
             public void onClick(View view) {
 
-                String id = editTextId.getText().toString();
-                String password1 = editTextPassword1.getText().toString();
-                String password2 = editTextPassword2.getText().toString();
-                String phone = editTextPhone.getText().toString();
+                String id = editTextId.getText().toString(); // 이메일 입력폼에서 가져온 값
+                String password1 = editTextPassword1.getText().toString(); // 패스워드 입력폼1 에서 가져온 값
+                String password2 = editTextPassword2.getText().toString(); // 패스워드 입력폼2 에서 가져온 값
+                String phone = editTextPhone.getText().toString(); // 휴대폰 입력폼 에서 가져온 값
 
                 idWarningView.setVisibility(View.GONE); // 일단 새로 검증해야하니까. 틀렸다고 표시했던 텍스트뷰는 다 가려주고 시작하자
 
@@ -85,24 +92,24 @@ public class MemberJoinPage extends Activity {
 
                     Toast.makeText(MemberJoinPage.this, "패스워드 양식을 지켜주세요", Toast.LENGTH_LONG).show();
                 }
-                else if (TextUtils.isEmpty(phone)) {
+                else if (TextUtils.isEmpty(phone))
+                {
                     Toast.makeText(MemberJoinPage.this, "핸드폰에 값을 입력해주세요", Toast.LENGTH_LONG).show();
                 }
-                else if (!Patterns.PHONE.matcher(id).matches()) {
+                else if (!Patterns.PHONE.matcher(id).matches())
+                {
                     Toast.makeText(MemberJoinPage.this, "핸드폰 양식을 지켜주세요", Toast.LENGTH_LONG).show();
                 }
                 else // 위 검증을 다 통과해서 여기 까지 왔구나 ! 수고했어
                 {
-                    Intent intent = getIntent();
-                    intent.putExtra("number", 100);
-                    intent.putExtra("text", "회원가입 성공!");
-                    // AppMember 라는 클래스에 정보를 채워서 새로운 객체를 만들자!
                     AppMember appMember = new AppMember();
                     appMember.id = id;
                     appMember.password = password1;
                     appMember.phone = phone;
-                    // 나를 호출했던 이메일 페이지가 기다리고 있을텐데 , 기다리고 있던 정보를 이제 넣어주자
+
+                    Intent intent = getIntent();
                     intent.putExtra("member", appMember);
+
                     // 이메일 페이지야 많이 기다렸지 ? 여기 너가 기다렸던 데이터 'member' 이름으로 넣었어. 틀리지 말고 잘꺼내가 ~
                     setResult(RESULT_OK, intent);
                     finish(); // 그럼 난 이만

@@ -25,7 +25,7 @@ public class EmailLoginPage extends Activity {
 
         // ------------------------------ 구분선 ------------------------------
         // loginButton 야 누가 널 누르면 , 이렇게 행동해 알았지 ?
-        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 명령어를 만들자 , EmailLoginPage 에서 MainPage 으로 이동하는 명령어 !
@@ -42,12 +42,14 @@ public class EmailLoginPage extends Activity {
             @Override
             public void onClick(View view) {
                 // 명령어를 만들자 , EmailLoginPage 에서 MainPage 으로 이동하는 명령어 !
-                Intent intent = new Intent(EmailLoginPage.this, MainPage.class);
+                Intent intent = new Intent(EmailLoginPage.this, MemberJoinPage.class);
 
+                intent.putExtra("message", "안녕 회원가입 화면? 반가워");
+                intent.putExtra("value", 100);
+
+                // 명령어를 실행해줘
                 // startActivity(intent);
-                // 회원 가입 화면아 ! 너가 하는일 끝나면 , 꼭 나한테 결과를 알려줘 'onActivityResult' 으로 알았지 ?
-                int requestCode = 100;
-                startActivityForResult(intent, requestCode);
+                startActivityForResult(intent, 200);
             }
         });
         // ------------------------------ 구분선 ------------------------------
@@ -58,20 +60,19 @@ public class EmailLoginPage extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 100) { // requestCode 가 100 인 것을 보니 .. 회원가입에서 온 결과이군
+        if (requestCode == 200) { // requestCode 가 200 인 것을 보니 .. 회원가입에서 온 결과이군
 
             if (resultCode == RESULT_OK) { // 결과 코드가 'RESULT_OK' 인 것을보니 .. 정상적으로 회원가입 했나보네!
 
-                // 분명히 나한테 'member' 라는 이름으로 주기로 했으니까 .. 한번 꺼내볼까
+                // data 에 분명 'number' 라는 이름으로 숫자 값이 동봉 되어 있을거야. 없으면 -1 이라고 하지 뭐
+                // int resultValue = data.getIntExtra("number", -1);
+                // data 에 분명 'text' 라는 이름으로 숫자 값이 동봉 되어 있을거야.
+                // String message = data.getStringExtra("text");
+
+                // data 에 분명 'member' 라는 이름으로 'Serializable' 이 동봉 되어 있을거야.
                 Serializable serializable = data.getSerializableExtra("member");
 
-                if (serializable != null) { // 내용물을 확인해볼까 ..? 흠
-                    // 오 있네 ! 다행히 내용물이 있었어
-                    // Serializable 라는 포장지에 있지만 분명 AppMember 일테니 , 일단 강제로 까보자
-                    AppMember appMember = (AppMember) serializable;
-
-                    Log.d("woozie", appMember.id); // 오 다행히 로그가 잘 찍히는 것을 보니. 잘 넘어왔네. OK!
-                }
+                AppMember appMember = (AppMember) serializable;
             }
         }
     }
