@@ -12,6 +12,7 @@ public class LionViewHolder extends RecyclerView.ViewHolder {
     public ImageView    animalImageView;
     public TextView     nameView;
     public TextView     genderView;
+    public TextView     gradeView;
 
     public LionViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -19,5 +20,6 @@ public class LionViewHolder extends RecyclerView.ViewHolder {
         animalImageView = itemView.findViewById(R.id.imageView);
         nameView = itemView.findViewById(R.id.nameView);
         genderView = itemView.findViewById(R.id.genderView);
+        gradeView = itemView.findViewById(R.id.gradeView);
     }
 }
