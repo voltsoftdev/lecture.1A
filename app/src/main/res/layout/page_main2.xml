@@ -124,7 +124,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp">
 
             <LinearLayout
                 android:id="@+id/scrollViewFrame"
@@ -136,6 +136,11 @@
 
         </ScrollView>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sampleListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -143,8 +148,55 @@
         android:orientation="vertical"
         android:layout_width="300dp"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:layout_gravity="left"
-        android:background="@color/white">
+        android:paddingLeft="15dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:id="@+id/memberIdView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:includeFontPadding="false"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:text="아이디는 : sample"/>
+
+        <TextView
+            android:id="@+id/memberPasswordView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:includeFontPadding="false"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:text="패스워드 : sample"/>
+
+        <TextView
+            android:id="@+id/memberPhoneView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:includeFontPadding="false"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:text="핸드폰번호 : sample"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/settingButton"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:text="설정화면"
+            android:textColor="@color/main"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/notosanscjkkr_regular"
+            android:includeFontPadding="false"
+            android:background="@drawable/shape_material_rect05"/>
 
     </LinearLayout>
 

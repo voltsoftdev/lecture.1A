@@ -4,9 +4,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.voltsoft.dev.lecture.model.Animal;
 import com.voltsoft.dev.lecture.model.Lion;
 
@@ -18,6 +21,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final int FRIEND = 200;
 
     public ArrayList<Animal> itemList = new ArrayList<>();
+
     // (1) 아이템 '뷰' 홀더를 생성하는 곳
     @NonNull
     @Override
@@ -39,6 +43,20 @@ public class AnimalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+
+        int viewType = getItemViewType(position);
+        if (viewType == LION) {
+            Lion lion = (Lion) this.itemList.get(position);
+
+            LionViewHolder lionViewHolder = (LionViewHolder) holder;
+
+            ImageView thumbnailView = lionViewHolder.animalImageView;
+            Glide.with(holder.itemView.getContext()).load(lion.thumbnail).into(thumbnailView);
+        }
+        else
+        {
+
+        }
     }
     // (3) 리스트뷰(리싸이클러뷰)의 아이템을 몇개를 보여줄 것 인지 정하는 곳
     @Override

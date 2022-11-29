@@ -3,14 +3,23 @@ package com.voltsoft.dev.lecture;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
 import com.voltsoft.dev.lecture.model.AppMember;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class EmailLoginPage extends Activity {
 
@@ -20,6 +29,9 @@ public class EmailLoginPage extends Activity {
 
         setContentView(R.layout.page_login);
 
+        EditText idForm = findViewById(R.id.idInsertForm);
+        EditText passwordForm = findViewById(R.id.passwordInsertForm);
+
         View loginButton = findViewById(R.id.loginButton);
         View joinButton = findViewById(R.id.joinButton);
 
@@ -28,10 +40,10 @@ public class EmailLoginPage extends Activity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 명령어를 만들자 , EmailLoginPage 에서 MainPage 으로 이동하는 명령어 !
-                Intent intent = new Intent(EmailLoginPage.this, MainPage.class);
-                // 명령어를 실행해줘
-                startActivity(intent);
+                String id = idForm.getText().toString();
+                String password = passwordForm.getText().toString();
+
+                login(id, password);
             }
         });
         // ------------------------------ 구분선 ------------------------------
@@ -73,7 +85,95 @@ public class EmailLoginPage extends Activity {
                 Serializable serializable = data.getSerializableExtra("member");
 
                 AppMember appMember = (AppMember) serializable;
+
+                Intent intent = new Intent(EmailLoginPage.this, MainPage.class);
+                intent.putExtra("member", appMember);
+                startActivity(intent);
             }
         }
+    }
+
+    private void login(String id, String password) {
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String result = connection(id, password);
+
+                try
+                {
+                    Gson gson = new Gson();
+                    AppMember appMember = gson.fromJson(result, AppMember.class);
+
+                    if (!TextUtils.isEmpty(appMember.id)) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(EmailLoginPage.this, "로그인에 성공 하였습니다", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(EmailLoginPage.this, MainPage.class);
+                                intent.putExtra("member", appMember);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(EmailLoginPage.this, "로그인에 실패하였습니다", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(EmailLoginPage.this, "로그인에 실패하였습니다", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+        thread.start();
+    }
+
+    public String connection(String id, String password) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("https://voltsoftware.co.kr/edu/sampleLoginMember?");
+        stringBuilder.append("id=").append(id);
+        stringBuilder.append("&password=").append(password);
+
+        try {
+            URL url = new URL(stringBuilder.toString());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(10000);
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            InputStream is = conn.getInputStream();
+            StringBuilder sb = new StringBuilder();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            String result;
+            while ((result = br.readLine()) != null) {
+                sb.append(result + '\n');
+            }
+            result = sb.toString();
+
+            return result;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

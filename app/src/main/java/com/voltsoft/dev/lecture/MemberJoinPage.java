@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.View;
@@ -16,8 +17,17 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
 import com.voltsoft.dev.lecture.model.AppMember;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.regex.Pattern;
 
 public class MemberJoinPage extends Activity {
@@ -53,6 +63,9 @@ public class MemberJoinPage extends Activity {
         });
 
         TextView idWarningView = findViewById(R.id.idWarningView);
+        TextView password1WarningView = findViewById(R.id.passwordWarningView1);
+        TextView password2WarningView = findViewById(R.id.passwordWarningView2);
+        TextView phoneWarningView = findViewById(R.id.phoneWarningView3);
 
         Button confirmButton = findViewById(R.id.confirmButton);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +78,9 @@ public class MemberJoinPage extends Activity {
                 String phone = editTextPhone.getText().toString(); // 휴대폰 입력폼 에서 가져온 값
 
                 idWarningView.setVisibility(View.GONE); // 일단 새로 검증해야하니까. 틀렸다고 표시했던 텍스트뷰는 다 가려주고 시작하자
+                password1WarningView.setVisibility(View.GONE);
+                password2WarningView.setVisibility(View.GONE);
+                phoneWarningView.setVisibility(View.GONE);
 
                 // 자 이제 검증 터널을 통과 해볼까 ?
                 if (TextUtils.isEmpty(id)) { // editTextId 에서 가져온 값이 아무 것 도 없나 ?
@@ -96,25 +112,113 @@ public class MemberJoinPage extends Activity {
                 {
                     Toast.makeText(MemberJoinPage.this, "핸드폰에 값을 입력해주세요", Toast.LENGTH_LONG).show();
                 }
-                else if (!Patterns.PHONE.matcher(id).matches())
+                else if (!Patterns.PHONE.matcher(phone).matches())
                 {
                     Toast.makeText(MemberJoinPage.this, "핸드폰 양식을 지켜주세요", Toast.LENGTH_LONG).show();
                 }
                 else // 위 검증을 다 통과해서 여기 까지 왔구나 ! 수고했어
                 {
-                    AppMember appMember = new AppMember();
-                    appMember.id = id;
-                    appMember.password = password1;
-                    appMember.phone = phone;
-
-                    Intent intent = getIntent();
-                    intent.putExtra("member", appMember);
-
-                    // 이메일 페이지야 많이 기다렸지 ? 여기 너가 기다렸던 데이터 'member' 이름으로 넣었어. 틀리지 말고 잘꺼내가 ~
-                    setResult(RESULT_OK, intent);
-                    finish(); // 그럼 난 이만
+                    registerMember(id, password1, phone);
                 }
             }
         });
+    }
+
+    public void registerMember(String id, String password, String phone) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("woozie", "++ registerMember appMember id :" + id);
+                Log.d("woozie", "++ registerMember appMember password :" + password);
+                Log.d("woozie", "++ registerMember appMember phone :" + phone);
+
+
+                String result = connection(id, password, phone);
+
+                try
+                {
+                    Gson gson = new Gson();
+                    Log.d("woozie", "++ registerMember appMember result :" + result);
+                    AppMember appMember = gson.fromJson(result, AppMember.class);
+                    Log.d("woozie", "++ registerMember appMember id :" + appMember.id);
+                    Log.d("woozie", "++ registerMember appMember password :" + appMember.password);
+                    Log.d("woozie", "++ registerMember appMember phone :" + appMember.phone);
+                    if (!TextUtils.isEmpty(appMember.id)) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MemberJoinPage.this, "회원가입에 성공하였습니다", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = getIntent();
+                                intent.putExtra("member", appMember);
+
+                                // 이메일 페이지야 많이 기다렸지 ? 여기 너가 기다렸던 데이터 'member' 이름으로 넣었어. 틀리지 말고 잘꺼내가 ~
+                                setResult(RESULT_OK, intent);
+                                finish(); // 그럼 난 이만
+                            }
+                        });
+                    }
+                    else
+                    {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MemberJoinPage.this, "회원가입에 실패하였습니다", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MemberJoinPage.this, "회원가입에 실패하였습니다", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+        thread.start();
+    }
+
+    public String connection(String id, String password, String phone) {
+
+        try {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("https://voltsoftware.co.kr/edu/sampleRegisterMember?");
+            stringBuilder.append("id=").append(id);
+            stringBuilder.append("&password=").append(URLEncoder.encode(password, "UTF-8"));
+            stringBuilder.append("&phone=").append(phone);
+
+            String urlStr = stringBuilder.toString();
+            Log.d("woozie", "++ urlStr : " + urlStr);
+            URL url = new URL(urlStr);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(10000);
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            InputStream is = conn.getInputStream();
+            StringBuilder sb = new StringBuilder();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            String result;
+            while ((result = br.readLine()) != null) {
+                sb.append(result + '\n');
+            }
+            result = sb.toString();
+
+            return result;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

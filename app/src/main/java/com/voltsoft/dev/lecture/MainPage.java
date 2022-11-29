@@ -1,5 +1,6 @@
 package com.voltsoft.dev.lecture;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,7 +21,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.voltsoft.dev.lecture.model.Animal;
+import com.voltsoft.dev.lecture.model.AppMember;
+import com.voltsoft.dev.lecture.model.DaySelection;
 import com.voltsoft.dev.lecture.model.Lion;
 
 import org.json.JSONArray;
@@ -36,15 +40,36 @@ import java.util.ArrayList;
 
 public class MainPage extends AppCompatActivity
 {
+    private DaySelectionAdapter daySelectionAdapter;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.page_main1);
+        setContentView(R.layout.page_main2);
+
+        TextView idView = findViewById(R.id.memberIdView);
+        TextView passwordView = findViewById(R.id.memberPasswordView);
+        TextView phoneView = findViewById(R.id.memberPhoneView);
+
+        AppMember appMember = (AppMember) getIntent().getSerializableExtra("member");
+
+        idView.setText("아이디는: " + appMember.id);
+        passwordView.setText("패스워드: " + appMember.password);
+        phoneView.setText("핸드폰번호: " + appMember.phone);
 
         TextView tabView1 = findViewById(R.id.tab1);
         TextView tabView2 = findViewById(R.id.tab2);
         TextView tabView3 = findViewById(R.id.tab3);
+
+        Button settingButton = findViewById(R.id.settingButton);
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         Context c = MainPage.this;
 
@@ -61,6 +86,8 @@ public class MainPage extends AppCompatActivity
                 tabView3.setTextColor(Color.parseColor("#80ffffff"));
                 tabView3.setBackground(null);
                 tabView3.setTypeface(ResourcesCompat.getFont(c, R.font.notosanscjkkr_light));
+
+                selectList(100400);
             }
         });
 
@@ -76,6 +103,8 @@ public class MainPage extends AppCompatActivity
                 tabView3.setTextColor(Color.parseColor("#80ffffff"));
                 tabView3.setBackground(null);
                 tabView3.setTypeface(ResourcesCompat.getFont(c, R.font.notosanscjkkr_light));
+
+                selectList(100500);
             }
         });
 
@@ -84,10 +113,15 @@ public class MainPage extends AppCompatActivity
             public void onClick(View view) {
                 tabView3.setTextColor(Color.parseColor("#ffffff"));
                 tabView3.setBackground(ContextCompat.getDrawable(MainPage.this, R.drawable.shape_box27));
+
                 tabView1.setTextColor(Color.parseColor("#80ffffff"));
                 tabView1.setBackground(null);
+                tabView1.setTypeface(ResourcesCompat.getFont(c, R.font.notosanscjkkr_light));
                 tabView2.setTextColor(Color.parseColor("#80ffffff"));
                 tabView2.setBackground(null);
+                tabView2.setTypeface(ResourcesCompat.getFont(c, R.font.notosanscjkkr_light));
+
+                selectList(100600);
             }
         });
 
@@ -167,77 +201,54 @@ public class MainPage extends AppCompatActivity
         // 예: 화면에 보이는 첫번쨰 아이템뷰 포지션 가져오기 , N번째에 해당하는 아이템뷰 가져오기 (이를 통해 가져온 특정 아이템뷰만 우리가 수정할 수 있음)
 
         // (3) 리싸이클러뷰에 필요한 '어댑터'를 생성해서 '리싸이클러뷰' 에 넣는다
-        AnimalAdapter animalAdapter = new AnimalAdapter();
-        recyclerView.setAdapter(animalAdapter);
+        daySelectionAdapter = new DaySelectionAdapter(this);
+        recyclerView.setAdapter(daySelectionAdapter);
         // 어댑터에는 우리가 스크롤뷰에서 했던 'inflate' 와 'findViewById' 그리고 데이터를 뷰에 넣어줬던 일을 하게 된다
+        selectList(100400);
+    }
 
-        // 네트워크 동작 확인 (1)
+    public void selectList(int examCode) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String result = connection("https://voltsoftware.co.kr/edu/responseServerState");
-                Log.d("woozie", "++ result: " + result);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("https://voltsoftware.co.kr/edu/v2/memberDaySelections?");
+                stringBuilder.append("ExamCode=").append(examCode);
+                stringBuilder.append("&WordKind=1");
+                String result = connection(stringBuilder.toString());
+
                 try
                 {
                     JSONObject jsonObject = new JSONObject(result);
 
-                    Log.d("woozie", "VersionCode : " + jsonObject.getInt("VersionCode"));
-                    Log.d("woozie", "ResponseCode : " + jsonObject.getInt("ResponseCode"));
-                    Log.d("woozie", "CurrentTime : " + jsonObject.getString("CurrentTime"));
-                    Log.d("woozie", "ResponseMessage : " + jsonObject.getString("ResponseMessage"));
-                } catch (JSONException e) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("DaySelections");
+
+                    Gson gson = new Gson();
+
+                    ArrayList<DaySelection> itemList = new ArrayList<>();
+
+                    for (int i = 0 ; i < jsonArray.length(); i ++) {
+                        JSONObject itemJson = jsonArray.getJSONObject(i);
+
+                        DaySelection daySelection = gson.fromJson(itemJson.toString(), DaySelection.class);
+                        itemList.add(daySelection);
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void run() {
+                            daySelectionAdapter.itemList = itemList;
+                            daySelectionAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+                catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
         thread.start();
-
-        // 네트워크 동작 확인 (2) - 서버에서 조회한 동물 목록을 리싸이클러뷰로 표현 하기
-        Thread thread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String result = connection("https://voltsoftware.co.kr/edu/animalListV1");
-
-                try
-                {
-                    ArrayList<Animal> animalList = new ArrayList<>();
-
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray jsonArray = jsonObject.getJSONArray("animalList");
-
-                    for (int i = 0 ; i < jsonArray.length(); i ++) {
-                        JSONObject animal = jsonArray.getJSONObject(i);
-
-                        String thumbnail = animal.getString("thumbnail");
-                        String gender = animal.getString("gender");
-                        String name = animal.getString("name");
-                        int grade = animal.getInt("grade");
-
-                        Lion lion = new Lion();
-                        lion.name = name;
-                        lion.gender = gender;
-                        lion.thumbnail = thumbnail;
-                        lion.grade = (grade + "위");
-                        animalList.add(lion);
-                    }
-                    
-                    // UI 에 반영해야 하니까 메인스레드에게 부탁한다
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            animalAdapter.itemList = animalList;
-                            animalAdapter.notifyDataSetChanged();
-                        }
-                    });
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        thread2.start();
     }
 
     public String connection(String urlStr) {
